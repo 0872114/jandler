@@ -16,14 +16,14 @@ class KeySound:
         self.shfdn = mixer.Sound('media/shfdn.wav')
         self.shfup = mixer.Sound('media/shfup.wav')
 
-        mixer.music.load('media/prs.wav')
-
         with Listener(
                 on_press=self.on_press,
                 on_release=self.on_release) as listener:
             listener.join()
 
     def on_press(self, key):
+        if self.keys_down == {Key.delete, Key.ctrl_l}:
+            exit(0)
         if key not in self.keys_down:
             self.keys_down.add(key)
             free_channel = mixer.find_channel()
